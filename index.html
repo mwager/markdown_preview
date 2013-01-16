@@ -1,0 +1,121 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Markdown Preview</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link href="style.css" rel="stylesheet"/>
+</head>
+<body>
+    <div id="container">
+        <div id="functional-wrapper">
+            <h1>Markdown Preview</h1>
+
+            <textarea placeholder="paste markdown" id="md-input"></textarea>
+
+            <div id="functions">
+                <a href="#" id="toggle-headlines">toggle headlines</a>
+            </div>
+        </div>
+
+        <div id="md"></div>
+    </div>
+
+<footer>
+    <p>Markdown2HTML parsed using  
+        <a target="_blank" href="https://github.com/evilstreak/markdown-js">markdown.js</a>
+        and <a target="_blank" href="https://raw.github.com/gist/2554919/2e66cabdafe1c9a7f354aa2ebf5bc38265e638e5/github.css">this gist</a> 
+        to make it look awesome!
+
+        <span style="float:right;">by <a href="https://github.com/fredda">Michael Wager<a></span>
+    </p>
+</footer>
+
+<script src="jquery.js"></script>
+<script src="markdown.js"></script>
+<script type="text/javascript">
+(function($) {
+    // dom ready
+    $(function() {
+        var md = $('#md');
+
+        /**
+         * Simple namespace
+         */
+        var markdownPreview = {
+            contentsAreVisible: false,
+
+            initNavigationToggle: function() {
+
+                // hide all between the h2 tags
+                markdownPreview.toggleAllContens(false);
+
+                // make result "collapsible"...
+                md.find('h2').on('click', function () {
+                    var next = $(this).next();
+
+                    var showIt = !next.is(':visible');
+
+
+                    while (typeof next[0] !== 'undefined' && (next[0].tagName !== 'H2')) {
+                        // console.log(next[0].tagName) 
+
+                        if(showIt) {
+                            next.fadeIn(300);
+                            markdownPreview.contentsAreVisible = true;
+                        }
+                        else {
+                            next.hide();
+                            markdownPreview.contentsAreVisible = false;
+                        }
+                        
+                        next = next.next();
+                    }                    
+                });
+            },
+
+            /**
+             * Show or hide all content betwenn h2-tags
+             */
+            toggleAllContens: function(show) {
+                md.find("h2").each(function () {
+                    $(this).nextAll().each(function () {
+                        if (this.tagName == 'H2') {
+                            return false; // stop execution
+                        }
+                        if(show) {
+                            $(this).fadeIn();
+                            markdownPreview.contentsAreVisible = true;
+                        }
+                        else {
+                            $(this).hide();
+                            markdownPreview.contentsAreVisible = false;
+                        }
+                    });
+                });
+            }
+        };
+
+        // ========== EVENTS ==========
+
+        $('#md-input')
+        .focus()
+        .on('keyup', function() {
+            var res = $(this).val();
+            
+            // render generated html
+            md.html(markdown.toHTML(res));
+
+            markdownPreview.initNavigationToggle();
+        });
+
+        $('#toggle-headlines').on('click', function() {
+            markdownPreview.toggleAllContens(markdownPreview.contentsAreVisible ? false : true);
+            return false;
+        });
+    });
+})(jQuery);
+</script>
+</body>
+</html>
