@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Markdown Preview</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link href="css/markdown.css" rel="stylesheet"/>
+    <link href="css/style.css" rel="stylesheet"/>
+</head>
+<body>
+    <div id="container">
+        <div id="functional-wrapper">
+            <h1>Markdown Preview</h1>
+
+            <textarea placeholder="write markdown code" id="md-input"></textarea>
+
+            <div id="functions">
+                <a href="#" id="toggle-headlines">toggle headlines</a>
+            </div>
+        </div>
+
+        <div id="md"></div>
+    </div>
+
+<footer>
+    <p>
+        Markdown2HTML parsed using  
+        <a target="_blank" href="https://github.com/evilstreak/markdown-js">markdown.js</a>
+
+        <span style="float:right;">
+            <a target="_blank" href="https://github.com/fredda/markdown_preview">src</a> 
+            by <a target="_blank" href="https://github.com/fredda">Michael Wager<a>
+        </span>
+    </p>
+</footer>
+
+<script src="js/jquery.js"></script>
+<script src="js/markdown.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
