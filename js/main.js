@@ -21,7 +21,7 @@
                     var showIt = !next.is(':visible');
 
                     while (typeof next[0] !== 'undefined' && (next[0].tagName !== 'H2')) {
-                        // console.log(next[0].tagName) 
+                        // console.log(next[0].tagName)
 
                         if(showIt) {
                             next.fadeIn(300);
@@ -31,9 +31,9 @@
                             next.hide();
                             markdownPreview.contentsAreVisible = false;
                         }
-                        
+
                         next = next.next();
-                    }                    
+                    }
                 });
             },
 
@@ -65,7 +65,7 @@
         .focus()
         .on('keyup', function() {
             var res = $(this).val();
-            
+
             // render generated html
             md.html(markdown.toHTML(res));
 
@@ -74,6 +74,7 @@
 
         $('#toggle-headlines').on('click', function() {
             markdownPreview.toggleAllContens(markdownPreview.contentsAreVisible ? false : true);
+
             return false;
         });
     });
